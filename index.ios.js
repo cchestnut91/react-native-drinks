@@ -13,7 +13,8 @@ import {
   Navigator,
   TouchableHighlight,
 } from 'react-native';
-import HomeView from './homeView'
+import HomeView from './src/screens/homeView'
+//import * as Home from './homeView'
 
 export default class RootViewController extends Component {
   render() {
@@ -23,6 +24,17 @@ export default class RootViewController extends Component {
         renderScene={(route, navigator) =>
           <HomeView title={route.title} />
         }
+        navigationBar={
+          <Navigator.NavigationBar
+          routeMapper={{
+            LeftButton: (route, navigator, index, navState) => { return (null); },
+            RightButton: (route, navigator, index, navState) => { return (<Text>Profile</Text>); },
+            Title: (route, navigator, index, navState) => { return (<Text>{route.title}</Text>); },
+       }}
+       style={{backgroundColor: '#F90029'}}
+     />
+  }
+
       />
     )
   }
