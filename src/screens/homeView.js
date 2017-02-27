@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import Screen from '../components/screen'
 import CircleIcon from '../components/circleIcon'
+import CardDock from '../components/cardDock'
 
 export default class HomeView extends Component {
   render() {
@@ -30,8 +31,8 @@ export default class HomeView extends Component {
             Current Session
           </Text>
         </View>
-        <View style={viewStyles.slidingView}>
-        </View>
+        <CardDock height={100}>
+        </CardDock>
       </Screen>
     );
   }
@@ -54,9 +55,6 @@ const viewStyles = StyleSheet.create({
   buttonWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  slidingView: {
-    height: 100,
   },
 });
 
