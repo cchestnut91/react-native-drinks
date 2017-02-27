@@ -6,6 +6,7 @@ import {
   View,
 } from 'react-native';
 import Screen from '../components/screen'
+import CircleIcon from '../components/circleIcon'
 
 export default class HomeView extends Component {
   render() {
@@ -20,6 +21,14 @@ export default class HomeView extends Component {
           </Text>
         </View>
         <View style={viewStyles.buttonContainer}>
+          <View style={viewStyles.buttonWrapper}>
+            <CircleIcon />
+            <CircleIcon />
+            <CircleIcon />
+          </View>
+          <Text>
+            Current Session
+          </Text>
         </View>
         <View style={viewStyles.slidingView}>
         </View>
@@ -31,21 +40,30 @@ export default class HomeView extends Component {
 const viewStyles = StyleSheet.create({
   labelContainer: {
     alignItems: 'center',
-    flex: 3
+    height: 160,
+    justifyContent: 'center'
   },
   buttonContainer: {
     backgroundColor: '#F90029',
-    flex: 4
+    flex:1,
+    paddingTop: 50,
+    paddingHorizontal: 20,
+    paddingBottom: 8,
+    justifyContent: 'space-between'
+  },
+  buttonWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   slidingView: {
-    flex: 1
+    height: 100,
   },
 });
 
 const textStyles = StyleSheet.create({
   largeLabel: {
     fontSize: 62,
-    color: '#F90029'
+    color: '#F90029',
   },
   smallLabel: {
 
