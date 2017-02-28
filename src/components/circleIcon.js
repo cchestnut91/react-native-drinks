@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react'
-import {View, StyleSheet, Image} from 'react-native'
+import {View, StyleSheet, Image, TouchableOpacity} from 'react-native'
 
 const SIZE = 80;
 
@@ -15,8 +15,6 @@ const IMG_CLOCK = require('../img/clock.png')
 export default class CircleIcon extends React.Component {
   getImage() {
     let icon = this.props.icon;
-    console.log(icon);
-    console.log(this.props.background);
     if (icon == 'WINE') {
       return IMG_WINE;
     } else if (icon == 'BEER') {
@@ -38,9 +36,11 @@ export default class CircleIcon extends React.Component {
   }
   render () {
     return (
-      <View style={[styles.circle, {backgroundColor:this.props.background}]}>
-        <Image source={this.getImage()} />
-      </View>
+      <TouchableOpacity onPress={this.props.onPress} >
+        <View style={[styles.circle, {backgroundColor:this.props.background}]}>
+          <Image source={this.getImage()} />
+        </View>
+      </TouchableOpacity>
     )
   }
 }
@@ -57,5 +57,6 @@ const styles = StyleSheet.create({
 
 CircleIcon.propTypes = {
   icon: PropTypes.string.isRequired,
-  background: PropTypes.string.isRequired
+  background: PropTypes.string.isRequired,
+  onPress: PropTypes.func
 };

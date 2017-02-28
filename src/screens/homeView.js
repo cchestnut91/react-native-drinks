@@ -4,14 +4,17 @@ import {
   StyleSheet,
   Text,
   View,
+  Navigator
 } from 'react-native';
 import Screen from '../components/screen'
 import CircleIcon from '../components/circleIcon'
 import CardDock from '../components/cardDock'
+import {connect} from 'react-redux'
+import * as AddDrinkActions from '../actions/addDrink';
 
 const cardHeight = 100;
 
-export default class HomeView extends Component {
+class HomeView extends Component {
   render() {
     return (
       <Screen>
@@ -25,9 +28,18 @@ export default class HomeView extends Component {
         </View>
         <View style={viewStyles.buttonContainer}>
           <View style={viewStyles.buttonWrapper}>
-            <CircleIcon icon='COCKTAIL' background='white'/>
-            <CircleIcon icon='WINE' background='white'/>
-            <CircleIcon icon='BEER' background='white'/>
+            <CircleIcon icon='COCKTAIL' background='white' onPress={() => {
+              this.props.dispatch(AddDrinkActions.addCocktailType());
+              this.props.navigator.push(this.props.routes.add)
+            }}/>
+            <CircleIcon icon='WINE' background='white' onPress={() => {
+              this.props.dispatch(AddDrinkActions.addWineType())
+              this.props.navigator.push(this.props.routes.add)
+            }}/>
+            <CircleIcon icon='BEER' background='white' onPress={() => {
+              this.props.dispatch(AddDrinkActions.addBeerType())
+              this.props.navigator.push(this.props.routes.add)
+            }}/>
           </View>
           <Text>
             Current Session
@@ -81,4 +93,9 @@ const textStyles = StyleSheet.create({
 
 HomeView.propTypes = {
   title: PropTypes.string.isRequired,
+  navigator: PropTypes.object,
+  routes: PropTypes.object
 };
+
+// export default HomeView;
+export default connect()(HomeView);

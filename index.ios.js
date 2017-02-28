@@ -16,25 +16,29 @@ import {
 import HomeView from './src/screens/homeView'
 import ProfileView from './src/screens/profileView'
 import AddDrinkView from './src/screens/addDrinkView'
-//import * as Home from './homeView'
+import {Provider} from 'react-redux'
+import store from './src/store'
 
 export default class RootViewController extends Component {
   render() {
-    const routes = [
-      {title: 'Drink Keeper', name: 'home'},
-      {title: 'Update Health Info', name: 'profile'},
-      {title: 'Add Drink', name: 'add'},
-    ];
+    const routes = {
+      home: {title: 'Drink Keeper', name: 'home'},
+      profile: {title: 'Update Health Info', name: 'profile'},
+      add: {title: 'Add Drink', name: 'add'},
+    };
     return (
+      <Provider store={store}>
       <Navigator
-        initialRoute={routes[0]}
+        initialRoute={routes.home}
         renderScene={(route, navigator) => {
           switch(route.name) {
             case 'home':
-              return <HomeView title={route.title} />
+              return <HomeView title={route.title} navigator={navigator} routes={routes}/>
             case 'profile': 
-              return <ProfileView title={route.title} />
-            }
+              return <ProfileView title={route.title} navigator={navigator} routes={routes}/>
+            case 'add':
+              return <AddDrinkView title={route.title} navigator={navigator} routes={routes}/>
+          }
           }
         }
         navigationBar={
@@ -43,7 +47,7 @@ export default class RootViewController extends Component {
             LeftButton: (route, navigator, index, navState) => { return (null); },
             RightButton: (route, navigator, index, navState) => { return (
               <TouchableHighlight onPress={() => {
-                navigator.push(routes[1]);
+                navigator.push(routes.profile);
                 }}><Text>Profile</Text></TouchableHighlight>
               ); },
             Title: (route, navigator, index, navState) => { return (
@@ -55,6 +59,7 @@ export default class RootViewController extends Component {
   }
 
       />
+     </Provider>
     )
   }
 }
