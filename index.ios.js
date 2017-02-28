@@ -14,22 +14,41 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import HomeView from './src/screens/homeView'
+import ProfileView from './src/screens/profileView'
+import AddDrinkView from './src/screens/addDrinkView'
 //import * as Home from './homeView'
 
 export default class RootViewController extends Component {
   render() {
+    const routes = [
+      {title: 'Drink Keeper', name: 'home'},
+      {title: 'Update Health Info', name: 'profile'},
+      {title: 'Add Drink', name: 'add'},
+    ];
     return (
       <Navigator
-        initialRoute={{ title: 'Drink Keeper', index: 0 }}
-        renderScene={(route, navigator) =>
-          <HomeView title={route.title} />
+        initialRoute={routes[0]}
+        renderScene={(route, navigator) => {
+          switch(route.name) {
+            case 'home':
+              return <HomeView title={route.title} />
+            case 'profile': 
+              return <ProfileView title={route.title} />
+            }
+          }
         }
         navigationBar={
           <Navigator.NavigationBar
           routeMapper={{
             LeftButton: (route, navigator, index, navState) => { return (null); },
-            RightButton: (route, navigator, index, navState) => { return (<Text>Profile</Text>); },
-            Title: (route, navigator, index, navState) => { return (<Text>{route.title}</Text>); },
+            RightButton: (route, navigator, index, navState) => { return (
+              <TouchableHighlight onPress={() => {
+                navigator.push(routes[1]);
+                }}><Text>Profile</Text></TouchableHighlight>
+              ); },
+            Title: (route, navigator, index, navState) => { return (
+              <Text>{route.title}</Text>
+              ); },
        }}
        style={{backgroundColor: '#F90029'}}
      />

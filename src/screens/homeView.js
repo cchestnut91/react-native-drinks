@@ -9,6 +9,8 @@ import Screen from '../components/screen'
 import CircleIcon from '../components/circleIcon'
 import CardDock from '../components/cardDock'
 
+const cardHeight = 100;
+
 export default class HomeView extends Component {
   render() {
     return (
@@ -23,15 +25,17 @@ export default class HomeView extends Component {
         </View>
         <View style={viewStyles.buttonContainer}>
           <View style={viewStyles.buttonWrapper}>
-            <CircleIcon />
-            <CircleIcon />
-            <CircleIcon />
+            <CircleIcon icon='COCKTAIL' background='white'/>
+            <CircleIcon icon='WINE' background='white'/>
+            <CircleIcon icon='BEER' background='white'/>
           </View>
           <Text>
             Current Session
           </Text>
         </View>
-        <CardDock height={100}>
+        <CardDock height={cardHeight}>
+          <View style={viewStyles.card}>
+          </View>
         </CardDock>
       </Screen>
     );
@@ -56,6 +60,13 @@ const viewStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  card: {
+    backgroundColor: 'white',
+    height: 243
+  },
+  red: {
+    backgroundColor: 'orange'
+  }
 });
 
 const textStyles = StyleSheet.create({

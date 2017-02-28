@@ -9,20 +9,20 @@ export default class CardDock extends React.Component {
     Animated.timing(
       this.state.offset,
       {
-        toValue: this.state.offset.__getValue() == 0 ? -200 : 0
+        toValue: this.state.offset.__getValue() == 0 ? (-this.height + 100) : 0
       }
     ).start()
+  }
+  onChildLayout(event) {
+    this.height = event.nativeEvent.layout.height;
   }
   render() {
     return (
       <View style={[styles.container, {height:this.props.height}]}>
         <Animated.View style={{marginTop: this.state.offset}}>
-          <TouchableWithoutFeedback onPress={() => this.toggleOffset()}>
+          <TouchableWithoutFeedback onPress={() => this.toggleOffset()} onLayout={(event) => this.onChildLayout(event)}>
             <View>
-              <View style={[styles.blue, {height: this.props.height}]}>
-              </View>
-              <View style={[styles.red, {height: this.props.height * 2}]}>
-              </View>
+              {this.props.children}
             </View>
           </TouchableWithoutFeedback>
         </Animated.View>
@@ -35,10 +35,4 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'green',
   },
-  blue: {
-    backgroundColor: 'blue'
-  },
-  red: {
-    backgroundColor: 'orange'
-  }
 });
