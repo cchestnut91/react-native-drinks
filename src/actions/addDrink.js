@@ -31,3 +31,7 @@ export function setTime(time) {
 export function setSize(size) {
   return {type: ActionTypes.ADD_SIZE, size};
 }
+
+export function saveDrink() {
+  return {type: ActionTypes.SAVE_DRINK};
+}

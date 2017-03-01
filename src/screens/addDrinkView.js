@@ -57,7 +57,9 @@ class AddDrinkView extends Component {
   updateSize(sizeValue) {
     this.props.dispatch(AddDrinkActions.setSize(sizeValue.value));
   }
-  
+  addDrink() {
+    this.props.dispatch(AddDrinkActions.saveDrink());
+  }
   render() {
     return (
       <Screen>
@@ -122,7 +124,10 @@ class AddDrinkView extends Component {
           )}
         </View>
         <View style={viewStyles.bottomView}>
-          <CircleIcon  icon='CHECK' background='#F90029'/>
+          <CircleIcon  icon='CHECK' background='#F90029' onPress={() => {
+            this.props.navigator.pop();
+            this.addDrink();
+            }}/>
         </View>
       </Screen>
     );
@@ -143,11 +148,12 @@ const viewStyles = StyleSheet.create({
     flex:1,
     justifyContent: 'space-between'
   },
-  bottonView: {
+  bottomView: {
     height: 100,
     backgroundColor: 'white',
     flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   textContainer: {
     paddingVertical: 8,
@@ -171,6 +177,7 @@ const textStyles = StyleSheet.create({
 
 AddDrinkView.propTypes = {
   title: PropTypes.string.isRequired,
+  navigator: PropTypes.object,
 };
 
 function selector (state) {

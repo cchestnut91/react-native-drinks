@@ -1,5 +1,13 @@
+// ADD DRINK
 export const ADD_DRINK_TYPE = 'ADD_DRINK_TYPE';
 export const TOGGLE_TIME_PICKER = 'TOGGLE_TIME_PICKER';
 export const TOGGLE_SIZE_PICKER = 'TOGGLE_SIZE_PICKER';
 export const ADD_TIME = 'ADD_TIME';
 export const ADD_SIZE = 'ADD_SIZE';
+export const SAVE_DRINK = 'SAVE_DRINK';
+
+// PROFILE
+export const SET_SEX = 'SET_SEX';
+export const SET_WEIGHT = 'SET_WEIGHT';
+export const TOGGLE_WEIGHT_PICKER = 'TOGGLE_WEIGHT_PICKER';
+export const TOGGLE_SEX_PICKER = 'TOGGLE_SEX_PICKER';

@@ -44,14 +44,34 @@ export default class RootViewController extends Component {
         navigationBar={
           <Navigator.NavigationBar
           routeMapper={{
-            LeftButton: (route, navigator, index, navState) => { return (null); },
-            RightButton: (route, navigator, index, navState) => { return (
-              <TouchableHighlight onPress={() => {
-                navigator.push(routes.profile);
-                }}><Text>Profile</Text></TouchableHighlight>
-              ); },
+            LeftButton: (route, navigator, index, navState) => {
+              if (route.name == 'add') {
+                return (
+                  <TouchableHighlight onPress={() => {
+                    navigator.pop();
+                  }}>
+                    <Text style={textStyles.buttons}>
+                      Back
+                    </Text>
+                  </TouchableHighlight>
+                );
+              } else {
+                return (null);}
+             },
+            RightButton: (route, navigator, index, navState) => {
+              if (route.name == 'home') {
+                return (
+                <TouchableHighlight onPress={() => {
+                  navigator.push(routes.profile);
+                }}>
+                  <Text style={textStyles.buttons}>
+                    Profile
+                  </Text>
+                </TouchableHighlight>);
+              } else {
+                return (null);} },
             Title: (route, navigator, index, navState) => { return (
-              <Text>{route.title}</Text>
+              <Text style={textStyles.title}>{route.title}</Text>
               ); },
        }}
        style={{backgroundColor: '#F90029'}}
@@ -63,5 +83,18 @@ export default class RootViewController extends Component {
     )
   }
 }
+
+const textStyles = StyleSheet.create({
+  title: {
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 20
+  },
+  buttons: {
+    color: 'white',
+    textAlign: 'center'
+  }
+});
+
 
 AppRegistry.registerComponent('RootViewController', () => RootViewController);

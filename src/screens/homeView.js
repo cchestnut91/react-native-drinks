@@ -41,7 +41,7 @@ class HomeView extends Component {
               this.props.navigator.push(this.props.routes.add)
             }}/>
           </View>
-          <Text>
+          <Text style={{color: 'white'}}>
             Current Session
           </Text>
         </View>
