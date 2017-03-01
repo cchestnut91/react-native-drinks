@@ -28,10 +28,12 @@ class ProfileView extends Component {
     return weightValue.toString();
   }
   updateSex(value) {
-    this.props.dispatch(ProfileActions.setSex(value));
+    console.log(value);
+    this.props.dispatch(ProfileActions.setSex(value.value));
   }
   updateWeight(value) {
-    this.props.dispatch(ProfileActions.setWeight(value));
+    console.log(value);
+    this.props.dispatch(ProfileActions.setWeight(value.value));
   }
   sexValues() {
     return [0.49, 0.535, 0.58];
