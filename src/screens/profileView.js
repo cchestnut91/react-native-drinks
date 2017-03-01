@@ -48,13 +48,13 @@ class ProfileView extends Component {
       <Screen>
         <View style={viewStyles.topView}>
           <CircleIcon icon='SCALE' background='#F90029' onPress={() => {
-            this.props.dispatch(ProfileActions.setWeightPickerHidden(!this.props.showWeightPicker));
-            this.props.dispatch(ProfileActions.setSexPickerHidden(false));
+            this.props.dispatch(ProfileActions.setShowWeight(!this.props.showWeightPicker));
+            this.props.dispatch(ProfileActions.setShowSex(false));
           }}/>
           <CircleIcon icon='GENDER' background='#F90029' onPress={() => {
             console.log(this.props.showSexPicker);
-            this.props.dispatch(ProfileActions.setSexPickerHidden(!this.props.showSexPicker));
-            this.props.dispatch(ProfileActions.setWeightPickerHidden(true));
+            this.props.dispatch(ProfileActions.setShowSex(!this.props.showSexPicker));
+            this.props.dispatch(ProfileActions.setShowWeight(false));
             console.log(this.props.showSexPicker);
           }}/>
         </View>

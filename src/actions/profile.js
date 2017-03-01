@@ -8,11 +8,11 @@ export function setWeight(weight) {
   return {type: ActionTypes.SET_WEIGHT, weight};
 }
 
-export function setWeightPickerHidden(hidden) {
-  console.log('hide', hidden);
-  return {type: ActionTypes.TOGGLE_WEIGHT_PICKER, shouldShow: hidden};
+export function setShowWeight(show) {
+  console.log('hide', show);
+  return {type: ActionTypes.TOGGLE_WEIGHT_PICKER, shouldShow: show};
 }
 
-export function setSexPickerHidden(hidden) {
-  return {type: ActionTypes.TOGGLE_SEX_PICKER, shouldShow: !hidden};
+export function setShowSex(show) {
+  return {type: ActionTypes.TOGGLE_SEX_PICKER, shouldShow: show};
 }
