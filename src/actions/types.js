@@ -13,3 +13,6 @@ export const SET_SEX = 'SET_SEX';
 export const SET_WEIGHT = 'SET_WEIGHT';
 export const TOGGLE_WEIGHT_PICKER = 'TOGGLE_WEIGHT_PICKER';
 export const TOGGLE_SEX_PICKER = 'TOGGLE_SEX_PICKER';
+
+// ADD_TIME
+export const UPDATE_TIME = 'UPDATE_TIME';

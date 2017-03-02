@@ -12,7 +12,7 @@ import CardDock from '../components/cardDock'
 import {connect} from 'react-redux'
 import {createStructuredSelector} from 'reselect';
 import * as AddDrinkActions from '../actions/addDrink'
-import {latestSessionSelector, currentSessionSelector, peakBACForLastSessionSelector} from '../selectors/sessions'
+import {latestSessionSelector, currentSessionSelector, peakBACForLastSessionSelector, currentBACSelector} from '../selectors/sessions'
 import moment from 'moment'
 
 const cardHeight = 100;
@@ -80,12 +80,15 @@ class HomeView extends Component {
     }
     return null;
   }
+  formatBac(bacValue) {
+    return (bacValue * 100).toFixed(3);
+  }
   render() {
     return (
       <Screen>
         <View style={viewStyles.labelContainer}>
           <Text style={textStyles.largeLabel}>
-            0.013
+            {`${this.formatBac(this.props.currentBAC)}`}
           </Text>
           <Text style={textStyles.smallLabel}>
             Current B.A.C.
@@ -128,7 +131,7 @@ class HomeView extends Component {
                 Peak B.A.C.
               </Text>
               <Text style={textStyles.sessionDetailsValue}>
-                {this.props.peakBac}
+                {this.formatBac(this.props.peakBac)}
               </Text>
             </View>
           </View>
@@ -205,6 +208,7 @@ const selector = createStructuredSelector({
   currentSession: currentSessionSelector,
   lastSession: latestSessionSelector,
   peakBac: peakBACForLastSessionSelector,
+  currentBAC: currentBACSelector
 });
 
 // export default HomeView;

@@ -86,11 +86,14 @@ export default class RootViewController extends Component {
 
 const textStyles = StyleSheet.create({
   title: {
+    paddingTop: 5,
     color: 'white',
     textAlign: 'center',
     fontSize: 20
   },
   buttons: {
+    paddingHorizontal: 8,
+    paddingTop:10,
     color: 'white',
     textAlign: 'center'
   }
