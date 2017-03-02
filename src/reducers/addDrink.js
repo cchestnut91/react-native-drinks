@@ -20,12 +20,7 @@ export default function addDrinkReducer(state = initialState, action) {
     case ActionTypes.ADD_SIZE:
       return {...state, size: action.size}
     case ActionTypes.SAVE_DRINK:
-      // Create Drink Instance
-      // Check if we have a current session in the state
-        // Create one if we dont
-      // Add drink to current session
-      // Recalculate BAC
-      return {...state, type: null, size: null, time: null};
+      return initialState;
   }
   return state;
 }

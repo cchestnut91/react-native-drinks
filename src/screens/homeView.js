@@ -10,11 +10,76 @@ import Screen from '../components/screen'
 import CircleIcon from '../components/circleIcon'
 import CardDock from '../components/cardDock'
 import {connect} from 'react-redux'
-import * as AddDrinkActions from '../actions/addDrink';
+import {createStructuredSelector} from 'reselect';
+import * as AddDrinkActions from '../actions/addDrink'
+import {latestSessionSelector, currentSessionSelector, peakBACForLastSessionSelector} from '../selectors/sessions'
+import moment from 'moment'
 
 const cardHeight = 100;
 
 class HomeView extends Component {
+  currentSessionText() {
+    if (this.props.currentSession) {
+      return 'Current Session';
+    } else if (this.props.lastSession) {
+      return 'Last Session';
+    } else {
+      return '';
+    }
+  }
+  sessionLengthText() {
+    if (this.session()) {
+      var firstDrink = this.session().drinks.sort((a, b) => {
+        return a.time.isAfter(b.time);
+      })[0];
+      var startTime = this.session().drinks[0].time;
+      if (startTime.isSame(moment(), 'm')) {
+        return 'Just Started';
+      } else {
+        return this.formatTimeDiff(startTime.diff(moment(), 'm'));
+      }
+    } else if (this.props.lastSession) {
+      return 'Last Session';
+    } else {
+      return 'No Sessions';
+    }
+  }
+  formatTimeDiff(numMinutes) {
+    numMinutes = -1 * numMinutes;
+    var numHours = Math.floor(numMinutes / 60);
+    numMinutes = numMinutes % 60;
+    var ret = "";
+    if (numHours == 0) {
+      return numMinutes + " Minutes";
+    } else {
+      var minString;
+      if (numMinutes < 10) {
+        minString = '0'+numMinutes;
+      } else {
+        minString = numMinutes;
+      }
+      return numHours+':'+minString + ' Hours';
+    }
+  }
+  numberOfDrinks() {
+    if (this.props.currentSession != null) {
+      return this.props.currentSession.drinks.length;
+    } else if (this.props.lastSession != null) {
+      return this.props.lastSession.drinks.length;
+    }
+    return null;
+  }
+  shouldSlide() {
+    return this.session() != null;
+  }
+  session() {
+    if (this.props.currentSession != null) {
+      return this.props.currentSession;
+    } else if (this.props.lastSession != null) {
+      return this.props.lastSession;
+    }
+    return null;
+  }
   render() {
     return (
       <Screen>
@@ -42,11 +107,30 @@ class HomeView extends Component {
             }}/>
           </View>
           <Text style={{color: 'white'}}>
-            Current Session
+            {this.currentSessionText()}
           </Text>
         </View>
-        <CardDock height={cardHeight}>
+        <CardDock height={cardHeight} shouldSlide={this.shouldSlide()}>
           <View style={viewStyles.card}>
+            <View style={viewStyles.detailHeaderContainer}>
+              <Text style={textStyles.sessionDetailsHeader}>
+                {this.sessionLengthText()}
+              </Text>
+            </View>
+            <View style={viewStyles.detailContainer}>
+              <Text style={textStyles.sessionDetailsLabel}>
+                Number of Drinks
+              </Text>
+              <Text style={textStyles.sessionDetailsValue}>
+                {this.numberOfDrinks()}
+              </Text>
+              <Text style={textStyles.sessionDetailsLabel}>
+                Peak B.A.C.
+              </Text>
+              <Text style={textStyles.sessionDetailsValue}>
+                {this.props.peakBac}
+              </Text>
+            </View>
           </View>
         </CardDock>
       </Screen>
@@ -78,6 +162,14 @@ const viewStyles = StyleSheet.create({
   },
   red: {
     backgroundColor: 'orange'
+  },
+  detailHeaderContainer: {
+    height: 100,
+    justifyContent: 'center',
+    paddingLeft: 8,
+  },
+  detailContainer: {
+    paddingHorizontal: 8,
   }
 });
 
@@ -89,6 +181,18 @@ const textStyles = StyleSheet.create({
   smallLabel: {
 
   },
+  sessionDetailsHeader: {
+    color: '#F90029',
+    fontSize: 52,
+  },
+  sessionDetailsLabel: {
+    fontSize: 20,
+  },
+  sessionDetailsValue: {
+    textAlign: 'right',
+    color: '#F90029',
+    fontSize: 30,
+  }
 });
 
 HomeView.propTypes = {
@@ -97,5 +201,11 @@ HomeView.propTypes = {
   routes: PropTypes.object
 };
 
+const selector = createStructuredSelector({
+  currentSession: currentSessionSelector,
+  lastSession: latestSessionSelector,
+  peakBac: peakBACForLastSessionSelector,
+});
+
 // export default HomeView;
-export default connect()(HomeView);
+export default connect(selector)(HomeView);

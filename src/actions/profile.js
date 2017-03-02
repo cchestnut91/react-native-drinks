@@ -9,7 +9,6 @@ export function setWeight(weight) {
 }
 
 export function setShowWeight(show) {
-  console.log('hide', show);
   return {type: ActionTypes.TOGGLE_WEIGHT_PICKER, shouldShow: show};
 }
 

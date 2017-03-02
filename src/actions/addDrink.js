@@ -1,4 +1,5 @@
 import * as ActionTypes from './types';
+import UUID from 'react-native-uuid';
 
 function addDrinkType(drinkType) {
   return {type: ActionTypes.ADD_DRINK_TYPE, drinkType}
@@ -32,6 +33,14 @@ export function setSize(size) {
   return {type: ActionTypes.ADD_SIZE, size};
 }
 
-export function saveDrink() {
-  return {type: ActionTypes.SAVE_DRINK};
+export function saveDrink(drinkType, size, time) {
+  return {type: ActionTypes.SAVE_DRINK, drinkType, size, time, id: UUID.v4()};
+}
+
+export function addSession(drink) {
+  return {type: ActionTypes.ADD_SESSION, drink};
+}
+
+export function addDrinkToSession(drink, session) {
+  return {type: ActionTypes.ADD_DRINK_TO_SESSION, drink, session};
 }

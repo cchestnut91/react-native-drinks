@@ -58,7 +58,7 @@ class AddDrinkView extends Component {
     this.props.dispatch(AddDrinkActions.setSize(sizeValue.value));
   }
   addDrink() {
-    this.props.dispatch(AddDrinkActions.saveDrink());
+    this.props.dispatch(AddDrinkActions.saveDrink(this.props.drinkType, this.props.selectedValue, this.props.selectedTime));
   }
   render() {
     return (

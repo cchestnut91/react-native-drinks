@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import {StyleSheet, View, Text, Animated, TouchableWithoutFeedback} from 'react-native'
 
 export default class CardDock extends React.Component {
@@ -6,12 +6,14 @@ export default class CardDock extends React.Component {
     offset: new Animated.Value(0)
   };
   toggleOffset() {
-    Animated.timing(
-      this.state.offset,
-      {
-        toValue: this.state.offset.__getValue() == 0 ? (-this.height + 100) : 0
-      }
-    ).start()
+    if (this.props.shouldSlide) {
+      Animated.timing(
+        this.state.offset,
+        {
+          toValue: this.state.offset.__getValue() == 0 ? (-this.height + 100) : 0
+        }
+      ).start()
+    }
   }
   onChildLayout(event) {
     this.height = event.nativeEvent.layout.height;
@@ -30,6 +32,10 @@ export default class CardDock extends React.Component {
     )
   }
 }
+
+CardDock.propTypes = {
+  shouldSlide: PropTypes.bool
+};
 
 const styles = StyleSheet.create({
   container: {
